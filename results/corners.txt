@@ -1,0 +1,27 @@
+Five-corner analysis
+DC sweep on temperature, -40 to 125 C, 5 C steps, VDD = 1.8 V
+
+corner   V_REF at 25 C   TC (-40 to 95 C)   TC (-40 to 125 C)
+------   -------------   ----------------   -----------------
+ss          675.66 mV        189 ppm/C          624 ppm/C
+snfp        661.74 mV        191 ppm/C          609 ppm/C
+tt          647.76 mV        198 ppm/C          599 ppm/C
+fnsp        634.63 mV        205 ppm/C          580 ppm/C
+ff          620.01 mV        208 ppm/C          538 ppm/C
+
+Absolute spread ff to ss:   55.65 mV, +/-4.3 % about the corner mean
+TC band:                    189 to 208 ppm/C, a 10 % band
+
+V_REF depends on absolute threshold voltage, which corners displace most.
+TC depends on a ratio of temperature dependences, which corners largely
+preserve. The asymmetry is structural, not accidental.
+
+Cross-check against Monte Carlo:
+  Corner spread                +/-27.8 mV about corner mean
+  Monte Carlo 1 sigma          9.07 mV
+  Corners sit at               +/-3.07 sigma
+Consistent with foundry corners being defined as +/-3 sigma process points.
+
+The -40 to 125 C column is reported for completeness only. It averages the
+working region with the post-95 C breakdown region and is not a meaningful
+specification.

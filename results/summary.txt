@@ -1,0 +1,56 @@
+All-MOSFET Subthreshold Voltage Reference, 180 nm CMOS
+Measured figures of merit. All values at VDD = 1.8 V, typical corner,
+unless otherwise stated.
+
+OUTPUT
+  V_REF at 27 C                      647.6   mV
+  V_REF at 25 C                      647.76  mV
+  V_REF minimum (40 C)               647.26  mV
+
+TEMPERATURE
+  TC, -40 to 95 C (box method)       198     ppm/C
+  Total span, -40 to 95 C            17.4    mV
+  Upper operating limit              ~95     C   (weak-inversion exit)
+  TC, -40 to 125 C                   599     ppm/C  (NOT a valid spec)
+
+SUPPLY
+  Supply current at 27 C             506.4   nA
+  Power at 27 C                      911     nW
+  Line sensitivity, 1.0 to 3.0 V     6205    ppm/V
+  Minimum supply (1 % criterion)     0.75    V
+  V_REF at 0.75 V                    641.90  mV  (-0.89 %)
+  V_REF at 3.00 V                    652.32  mV  (+0.72 %)
+
+SUPPLY REJECTION
+  PSRR, DC to 40 Hz                  -48     dB
+  PSRR at 100 Hz                     -47     dB
+  PSRR above 3 MHz                   -8.5    dB
+
+STATISTICAL (200 runs, netlist, fixed seed)
+  sigma/mu, process + mismatch       1.40    %
+  sigma/mu, process only             1.32    %
+  sigma/mu, mismatch only            0.52    %
+  Process share of variance          86.7    %
+  Yield                              100     %  (200/200)
+
+CORNERS (25 C)
+  Spread, ff to ss                   55.65   mV  (+/-4.3 %)
+  TC band across corners             189-208 ppm/C
+
+START-UP
+  Start-up time, 1 ms ramp           4.3     ms
+  Escape time without MS6, 1 ms ramp ~85     ms
+  Slow ramp without MS6              no start-up in 2 s
+  MS6 steady-state current           8.69    pA
+
+RELIABILITY (10 years)
+  Drift at 27 C                      -9.90   mV  (-1.53 %)
+  Drift at 125 C                     -5.54   mV  (-0.78 %)
+  Dominant mechanism                 PMOS NBTI on MP2
+
+OPERATING POINT (27 C, 1.8 V)
+  PMOS mirror V_GS                   -366.2  mV
+  PMOS branch current (MP1-MP5)      94.3 to 94.63 nA
+  M4 current                         283.7   nA
+  M6 current                         189.1   nA
+  Node B                             1.434   V

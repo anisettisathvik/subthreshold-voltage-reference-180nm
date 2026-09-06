@@ -1,0 +1,89 @@
+// ---------------------------------------------------------------------------
+// All-MOSFET subthreshold voltage reference
+// Topology after Ueno et al., IEEE JSSC 44(7), pp. 2047-2054, July 2009
+//
+// DEVICE-AGNOSTIC NETLIST
+// Model names are generic (nch / pch). No foundry model files, no PDK
+// parameters, no process data. Supply your own model library and adjust the
+// device names to run this.
+//
+// Sizing below is for a 180 nm process with the devices in weak inversion.
+// On a different node the sizing must be re-derived: extract the subthreshold
+// slope factor, the threshold-voltage temperature coefficient, and the
+// threshold voltage extrapolated to 0 K for your own devices first. Copying
+// ratios across nodes does not work.
+// ---------------------------------------------------------------------------
+
+simulator lang=spectre
+global 0
+
+// --- include your own models here, e.g.
+// include "/path/to/your/models.lib.scs" section=tt
+
+parameters VDD_val=1.8
+parameters M35=280        // multiplicity of the wide ladder devices
+parameters WN=3u  LN=3u   // ladder device geometry
+parameters WS5=1u         // start-up sense device width
+
+V0 (VDD 0) vsource dc=VDD_val type=dc
+
+// --- PMOS current mirrors ---------------------------------------------------
+//                  D    G  S   B
+MP1  (A    B VDD VDD) pch w=30u l=30u m=10
+MP2  (B    B VDD VDD) pch w=30u l=30u m=10
+MP3  (D3   B VDD VDD) pch w=30u l=30u m=10
+MP4  (D5   B VDD VDD) pch w=30u l=30u m=10
+MP5  (VREF B VDD VDD) pch w=30u l=30u m=10
+
+// --- Current source ---------------------------------------------------------
+// M1 and M2 share geometry but differ in multiplicity; the loop current is set
+// by that ratio and the thermal voltage. MR1 acts as a MOS resistor with its
+// gate on VREF, closing the loop.
+M1   (A    A    0   0) nch w=12u   l=12u m=20
+M2   (B    A    SM2 0) nch w=12u   l=12u m=100
+MR1  (SM2  VREF 0   0) nch w=1.34u l=50u m=1
+
+// --- Bias voltage generator (stacked ladder, 1x / 3x / 2x summing) ----------
+M3   (D3   D3   S34 0) nch w=WN l=LN m=M35
+M4   (S34  D3   0   0) nch w=3u  l=3u  m=2
+M5   (D5   D5   S56 0) nch w=WN l=LN m=M35
+M6   (S56  D5   S34 0) nch w=3u  l=3u  m=2
+M7   (VREF VREF S56 0) nch w=WN l=LN m=2
+
+// --- Start-up circuit -------------------------------------------------------
+// Three-deep long-channel diode stack senses the supply; MS5 senses VREF;
+// MS6 injects current into the mirror rail (node B) when VREF is low.
+// In steady state MS6 carries a few picoamps and costs no measurable power.
+//
+// NOTE: this circuit is bistable. Removing MS6 leaves a stable degenerate
+// state that a fast-ramp transient testbench will NOT reveal - the supply edge
+// injects enough displacement current through the PMOS gate capacitance to
+// start the loop anyway. Verify start-up with a slow ramp or a DC solve.
+MS1  (VDD VDD  N1 0) nch w=0.24u l=50u m=1
+MS2  (N1  N1   N2 0) nch w=0.24u l=50u m=1
+MS3  (N2  N2   S  0) nch w=0.24u l=50u m=1
+MS5  (S   VREF 0  0) nch w=WS5   l=3u  m=1
+MS6  (B   S    0  0) nch w=3u    l=3u  m=1
+
+// --- Simulator options ------------------------------------------------------
+// Tolerances are tightened deliberately. Branch currents are near 100 nA and
+// default tolerances are not adequate.
+opt1 options reltol=1e-6 vabstol=1e-9 iabstol=1e-15 gmin=1e-15 temp=27
+
+// --- Analyses ---------------------------------------------------------------
+// Uncomment one at a time.
+
+op1     dc oppoint=rawfile
+// tsweep  dc param=temp    start=-40 stop=125 step=5
+// vsweep  dc param=VDD_val start=0.4 stop=3.0 step=0.005
+
+// AC supply rejection: set an AC magnitude of 1 on V0, then
+// ac1  ac start=1 stop=10M dec=20
+// PSRR = dB20(V(VREF))
+
+// Start-up transient: change V0 to a pulse source, then
+// tran1 tran stop=20m errpreset=conservative
+//   fast ramp : delay=1m rise=1m fall=1m width=50m period=100m  stop=20m
+//   slow ramp : delay=100m rise=500m fall=1m width=3 period=6   stop=2
+
+saveOptions options save=allpub

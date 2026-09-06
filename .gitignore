@@ -1,0 +1,107 @@
+# ============================================================================
+# PDK AND FOUNDRY CONTENT - NEVER COMMIT
+# ============================================================================
+# Model files and libraries
+*.lib.scs
+*.mdl.scs
+*.scs.enc
+*.va
+*.vams
+models/
+Models/
+pdk/
+pdks/
+PDK/
+*_mc_corner*
+*_statistical*
+*Monte_Carlo*
+
+# Technology and library setup
+cds.lib
+cdsinfo.tag
+display.drf
+*.tf
+techfile*
+.cdsinit
+.cdsenv
+.simrc
+prop.xx
+data.dm
+master.tag
+
+# Reliability / aging model data
+*.age
+*.aging
+*.aging.out
+*_devDegrad*
+relxpert*
+umc180_age*
+
+# Any netlist naming foundry devices - review before removing this rule
+input.scs
+netlist/
+*_bo0*
+*.ba0
+*.bo0
+
+# ============================================================================
+# CADENCE WORK PRODUCTS
+# ============================================================================
+# Simulation results and raw output
+psf/
+raw/
+raw*/
+*.raw
+simulation/
+*.psf
+*.psfxl
+*.srr
+*.mdb
+
+# Logs - these embed full PDK paths and sometimes model parameters
+*.log
+*.out
+spectre.out
+*.ahdlSimDB/
+.oasis*
+*.diag
+
+# ADE state and run data
+adexl/
+*.adexl
+.adexl*
+artist_states/
+.artist_states/
+maestro*
+*.wrk
+
+# Design library databases
+*.cdb
+*.oa
+*.oa.*
+*.cdslck
+*.cdslck.*
+panic*.il.*
+*.il.cxt
+
+# Locks and temporaries
+*~
+.#*
+#*#
+*.tmp
+*.bak
+core.*
+.nfs*
+
+# ============================================================================
+# GENERAL
+# ============================================================================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+venv/
+.venv/

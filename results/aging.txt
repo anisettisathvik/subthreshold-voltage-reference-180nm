@@ -1,0 +1,42 @@
+Reliability analysis
+RelXpert, 10-year projection, NBTI and hot-carrier injection.
+
+CONDITION      FRESH        AGED         DRIFT
+-----------  ----------   ----------   ------------------
+27 C         647.64 mV    637.74 mV    -9.90 mV (-1.53 %)
+125 C        712.15 mV    706.61 mV    -5.54 mV (-0.78 %)
+
+MECHANISM RANKING
+  mechanism      worst device   magnitude
+  ------------   ------------   ---------
+  PMOS NBTI      MP2            4.92e-03
+  PMOS HCI       MP1            1.95e-04
+  NMOS HCI       -              zero
+
+PMOS NBTI dominates, 25x larger than PMOS hot-carrier degradation.
+NMOS hot-carrier degradation is absent.
+
+MP2 leads on NBTI because it is diode-connected, so V_GS = V_DS.
+MP1 leads on HCI because it carries the largest V_DS.
+The rankings invert: NBTI scales with the vertical gate field, HCI with
+the lateral drain field.
+
+WHY THE DEGRADATION IS SMALL
+Every PMOS operates at |V_GS| = 366 mV and roughly 95 nA. Neither
+mechanism has the field it requires. Subthreshold operation confers
+intrinsic reliability - the result is small for a structural reason,
+not by chance.
+
+CONTEXT
+  Process + mismatch 1 sigma    9.07 mV
+  10-year aging drift           9.90 mV
+  Corner spread                 55.65 mV
+Aging costs approximately one sigma of process spread. It is comparable
+to manufacturing variation, not dominant over it.
+
+Drift is larger cold than hot, so aging slightly improves the temperature
+coefficient by pulling the cold end down more than the hot end.
+
+LIMITATIONS
+Run at nominal supply only, two temperatures. Degradation under supply
+stress or duty-cycled operation was not explored.
