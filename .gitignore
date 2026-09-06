@@ -14,7 +14,11 @@ pdks/
 PDK/
 *_mc_corner*
 *_statistical*
-*Monte_Carlo*
+# PDK statistical model directory. Directory-only pattern: a bare
+# *Monte_Carlo* also matches results/monte_carlo.txt on Windows, where
+# git ignores case by default.
+Monte_Carlo/
+!results/monte_carlo.txt
 
 # Technology and library setup
 cds.lib

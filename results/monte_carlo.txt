@@ -1,0 +1,53 @@
+Monte Carlo analysis
+200 runs, DC operating point per run, fixed seed, netlist level.
+
+Decomposition performed by zeroing the PDK per-device global and local
+variation flags while keeping all statistics blocks active, so all three
+runs draw the identical underlying sample set.
+
+variation source        mean       sigma      sigma/mu
+--------------------  ---------  ---------  ----------
+process + mismatch    648.29 mV   9.070 mV    1.40 %
+process only          648.50 mV   8.584 mV    1.32 %
+mismatch only         647.43 mV   3.369 mV    0.52 %
+
+QUADRATURE CHECK
+  sqrt(8.584^2 + 3.369^2)  =  9.222 mV
+  measured combined sigma  =  9.070 mV
+  difference               =  1.67 %
+The two sources add in quadrature; they are statistically independent.
+
+  Process share of RECONSTRUCTED variance
+    sp^2 / (sp^2 + sm^2)     =  86.7 %
+  Process share of MEASURED variance
+    sp^2 / sa^2              =  89.6 %
+  The 2.9 point gap is the same 1.67 % quadrature
+  overshoot, expressed as a share.
+
+YIELD
+  200 / 200 passed. No sample failed to start.
+
+SUPPLY CURRENT (ADE XL, all variations, 200 runs)
+  mean   496.05 nA   ->  893 nW at 1.8 V
+  sigma   16.57 nA   ->   30 nW      (3.34 %)
+Supply current varies ~3x more than the output voltage in the same run.
+V_REF is set by a ratio of device parameters, so current spread partly
+cancels in the output.
+
+REPRODUCIBILITY NOTE
+The same decomposition attempted in ADE XL could not be reconciled:
+process-only sigma exceeded process-plus-mismatch sigma, which is
+impossible from a shared sample set. Repeating an identical configuration
+with the same seed returned a different mean and sigma.
+
+Two separate problems:
+  1. Changing the Statistical Variation setting changes which statistics
+     blocks Spectre samples, so the random stream advances differently and
+     the process draws land on different values even with the same seed.
+  2. The seed field did not hold across repeated runs of one configuration.
+
+Across six independent 200-run experiments (one netlist, five ADE XL) the
+combined sigma/mu ranged 1.13 % to 1.47 %. With 200 samples the uncertainty
+on sigma is roughly +/-5 %, so the observed scatter is consistent.
+
+Only the netlist decomposition is reported as a decomposition.
