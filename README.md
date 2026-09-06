@@ -186,10 +186,9 @@ its output level would indicate the cancellation itself was process-sensitive; t
 | 1.80 V | 647.64 mV | — |
 | 3.00 V | 652.32 mV | +0.72 % |
 
-Line sensitivity is 6 205 ppm/V and is essentially range-independent above 1 V: computing it over
-1.0–3.0 V, 1.6–2.0 V and 1.62–1.98 V gives 6 205, 6 203 and 6 203 ppm/V — agreement to 0.03 %,
-confirming the response is linear in
-that region.
+Line sensitivity is 6 205 ppm/V and is essentially range-independent above 1 V. Computing it over
+1.0–3.0 V, 1.6–2.0 V and 1.62–1.98 V gives 6 205, 6 203 and 6 203 ppm/V respectively — agreement
+to 0.03 %, which confirms the response is linear in that region.
 
 ### Supply rejection
 
@@ -233,17 +232,21 @@ defined as ±3σ process points. Two independent methods agree.
 Mean 496.05 nA, σ 16.57 nA (3.34 %), which is 893 nW ± 30 nW at 1.8 V. The design remains
 sub-microwatt across the whole sampled process window.
 
-Supply current varies three times as much as the output voltage (3.34 % against 1.13 % in the
-same run). That is the topology working as intended: V_REF is set by a ratio of device
-parameters, so absolute current spread partly cancels in the output.
+Supply current varies about three times as much as the output voltage: 3.34 % against 1.13 % for
+V_REF in that same ADE XL run, or 1.40 % against the netlist runs quoted above. That is the
+topology working as intended — V_REF is set by a ratio of device parameters, so absolute current
+spread partly cancels in the output.
 
 ---
 
 ## Start-up: the circuit is bistable
 
-The self-biased loop has two DC solutions. One is the intended operating point; the other has
-every branch at zero current, with V_REF near 33 mV. A start-up circuit is required to guarantee
-the correct one. Three transient experiments characterise this.
+The self-biased loop has two DC solutions. One is the intended operating point; the other is a
+degenerate state in which every branch carries only leakage. A DC solve of that state returns
+V_REF ≈ 33 mV; a transient that never escapes it settles nearer 80 mV, since the transient
+retains a small displacement-current contribution the DC solve does not. Both figures describe
+the same dead state and appear below. A start-up circuit is required to guarantee the correct
+solution. Three transient experiments characterise this.
 
 ### With the start-up circuit
 
