@@ -16,7 +16,9 @@ TEMPERATURE
 SUPPLY
   Supply current at 27 C             506.4   nA
   Power at 27 C                      911     nW
-  Line sensitivity, 1.0 to 3.0 V     6205    ppm/V
+  Line sensitivity, 1.0 to 3.0 V     6211    ppm/V
+    (norm. by V_REF(1.8 V); local slope
+     falls 6695 -> 5921 ppm/V across range)
   Minimum supply (1 % criterion)     0.75    V
   V_REF at 0.75 V                    641.90  mV  (-0.89 %)
   V_REF at 3.00 V                    652.32  mV  (+0.72 %)
