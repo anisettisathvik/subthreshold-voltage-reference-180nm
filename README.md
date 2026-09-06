@@ -458,10 +458,12 @@ this author's design work), and simulation results (which are measurements of th
    circuit consisting of subthreshold MOSFETs," *IEEE Journal of Solid-State Circuits*, vol. 44,
    no. 7, pp. 2047–2054, July 2009. DOI: [10.1109/JSSC.2009.2021922](https://doi.org/10.1109/JSSC.2009.2021922)
 2. K. Ueno, T. Hirose, T. Asai, Y. Amemiya, "CMOS smart sensor for monitoring the quality of
-   perishables," *IEEE Journal of Solid-State Circuits*, vol. 42, no. 3, pp. 798–803, 2007.
+   perishables," *IEEE Journal of Solid-State Circuits*, vol. 42, no. 4, pp. 798–803, April 2007.
+   DOI: [10.1109/JSSC.2007.891676](https://doi.org/10.1109/JSSC.2007.891676)
 3. A. Bendali, Y. Audet, "A 1-V CMOS current reference with temperature and process
-   compensation," *IEEE Transactions on Circuits and Systems I*, vol. 54, no. 7, pp. 1424–1429,
-   2007.
+   compensation," *IEEE Transactions on Circuits and Systems I: Regular Papers*, vol. 54, no. 7,
+   pp. 1424–1429, July 2007.
+   DOI: [10.1109/TCSI.2007.900176](https://doi.org/10.1109/TCSI.2007.900176)
 4. *Virtuoso Analog Design Environment XL User Guide*, Cadence Design Systems.
 5. *Virtuoso RelXpert Reliability Simulator User Guide*, Cadence Design Systems.
 
